@@ -9,6 +9,9 @@ public class Employee {
 	private Integer id;
 	private String name;
 	private String address;
+	private PaymentClassification paymentClassification;
+	private PaymentMethod paymentMethod;
+	private PaymentSchedule paymentSchedule;
 
 	public Employee(Integer id, String name, String address) {
 		this.id = id;
@@ -24,32 +27,40 @@ public class Employee {
 		return this.name;
 	}
 
-	public PaymentClassification getPaymentClassification() {
-		return null;
+	public String getAddress() {
+		return address;
 	}
 
-	public Double getSalary() {
-		return null;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public PaymentClassification getPaymentClassification() {
+		return this.paymentClassification;
 	}
 
 	public PaymentSchedule getPaymentSchedule() {
-		return null;
+		return this.paymentSchedule;
 	}
 
 	public PaymentMethod getPaymentMethod() {
-		return null;
+		return this.paymentMethod;
 	}
 
 	public void setPaymentClassification(PaymentClassification paymentClassification) {
-		
+		this.paymentClassification = paymentClassification;
 	}
 
 	public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
-		
+		this.paymentSchedule = paymentSchedule;
 	}
 
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		
+		this.paymentMethod = paymentMethod;
 	}
 
 }

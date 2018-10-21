@@ -21,7 +21,7 @@ public class AddEmployeeTransactionSpec {
 	public void salariedEmployeeShouldBeAdded() {
 		int employeeId = 1;
 		AddSalariedEmployee salariedEmployeeTransaction = new AddSalariedEmployee(
-				employeeId, "Bob", "Home", 1000.00);
+				employeeId, "Bill", "Home", 1000.00);
 		salariedEmployeeTransaction.execute();
 
 		Employee employee = PayrollDatabase.getEmployeeBy(employeeId);
@@ -32,7 +32,9 @@ public class AddEmployeeTransactionSpec {
 		assertTrue("Not a Salaried Payment Classification", 
 				paymentClassification instanceof SalariedClassification);
 		
-		assertEquals(new Double(1000.00), employee.getSalary());
+		SalariedClassification salariedClassification = (SalariedClassification) paymentClassification;
+		
+		assertEquals(new Double(1000.00), salariedClassification.getSalary());
 		
 		PaymentSchedule paymentSchedule = employee.getPaymentSchedule();
 		assertTrue("Not a monthly schedule", paymentSchedule instanceof MonthlySchedule);
