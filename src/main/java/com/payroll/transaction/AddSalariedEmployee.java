@@ -1,14 +1,27 @@
 package com.payroll.transaction;
 
-public class AddSalariedEmployee implements Transaction {
+import com.payroll.payment.classification.PaymentClassification;
+import com.payroll.payment.classification.SalariedClassification;
+import com.payroll.schedule.payment.MonthlySchedule;
+import com.payroll.schedule.payment.PaymentSchedule;
 
-	public AddSalariedEmployee(int employeeId,
-			String string, String string2, double d) {
+public class AddSalariedEmployee extends AddEmployeeTransaction {
+
+	private double salary;
+	
+	public AddSalariedEmployee(Integer employeeId, String name, String address, double salary) {
+		super(employeeId, name, address);
+		this.salary = salary;
 	}
 
 	@Override
-	public void execute() {
-		
+	protected PaymentClassification makeClassification() {
+		return new SalariedClassification(salary);
+	}
+
+	@Override
+	protected PaymentSchedule makeSchedule() {
+		return new MonthlySchedule();
 	}
 
 }

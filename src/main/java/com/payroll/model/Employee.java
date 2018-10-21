@@ -6,14 +6,22 @@ import com.payroll.schedule.payment.PaymentSchedule;
 
 public class Employee {
 	
-	private int id;
+	private Integer id;
+	private String name;
+	private String address;
+
+	public Employee(Integer id, String name, String address) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public String getName() {
-		return null;
+		return this.name;
 	}
 
 	public PaymentClassification getPaymentClassification() {
@@ -30,6 +38,18 @@ public class Employee {
 
 	public PaymentMethod getPaymentMethod() {
 		return null;
+	}
+
+	public void setPaymentClassification(PaymentClassification paymentClassification) {
+		
+	}
+
+	public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
+		
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		
 	}
 
 }
