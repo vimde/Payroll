@@ -6,15 +6,18 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.payroll.model.Employee;
+import com.payroll.payment.classification.CommissionedClassification;
 import com.payroll.payment.classification.HourlyClassification;
 import com.payroll.payment.classification.PaymentClassification;
 import com.payroll.payment.classification.SalariedClassification;
 import com.payroll.payment.method.HoldMethod;
 import com.payroll.payment.method.PaymentMethod;
 import com.payroll.repository.PayrollDatabase;
+import com.payroll.schedule.payment.BiweeklySchedule;
 import com.payroll.schedule.payment.MonthlySchedule;
 import com.payroll.schedule.payment.PaymentSchedule;
 import com.payroll.schedule.payment.WeeklySchedule;
+import com.payroll.transaction.AddCommissionedEmployee;
 import com.payroll.transaction.AddHourlyEmployee;
 import com.payroll.transaction.AddSalariedEmployee;
 
@@ -64,5 +67,25 @@ public class AddEmployeeTransactionSpec {
 		PaymentSchedule paymentSchedule = employee.getPaymentSchedule();
 		assertTrue("Not a weekly schedule", paymentSchedule instanceof WeeklySchedule);
 		
+	}
+	
+	@Test
+	public void commissionedEmployeeWithValidDetailsShouldBeAdded() {
+		Integer employeeId = 3;
+		Double salary = 2000.00;
+		Double commissionRate = 20.00;
+		AddCommissionedEmployee addCommissionedEmployee = new AddCommissionedEmployee(employeeId,
+				"John", "Baker Street", salary, commissionRate);
+		addCommissionedEmployee.execute();
+		
+		Employee employee = PayrollDatabase.getEmployeeBy(employeeId);
+		assertEquals("John", employee.getName());
+		
+		PaymentClassification paymentClassification = employee.getPaymentClassification();
+		CommissionedClassification commissionedClassification = (CommissionedClassification) paymentClassification;
+		assertEquals(new Double(2000.00), commissionedClassification.getSalary());
+		
+		PaymentSchedule paymentSchedule = employee.getPaymentSchedule();
+		assertTrue("Not a Biweekly schedule", paymentSchedule instanceof BiweeklySchedule);
 	}
 }
